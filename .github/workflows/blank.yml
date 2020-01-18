@@ -1,0 +1,11 @@
+---
+name: Pull request labeler
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Mest relevant
+      run: curl -XPOST -H "Content-type: application/json" -d '{"size":50,"aggregations":{"contentTypes":"type","virksomheter":"arkivskaperTransitive"},"appliedFilters":[{"fieldName":"type","fieldValue":["JournalpostForMøte"],"type":"notQueryFilter"}],"sort":{}}' 'https://einnsyn.no/api/result'
